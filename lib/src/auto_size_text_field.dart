@@ -429,6 +429,8 @@ class AutoSizeTextField extends StatefulWidget {
 
   final double? minWidth;
 
+  final Function(double fontSize)? onFontSizeChanged;
+
   /// Creates a [AutoSizeTextField] widget.
   ///
   /// If the [style] argument is null, the text will use the style from the
@@ -493,6 +495,7 @@ class AutoSizeTextField extends StatefulWidget {
     this.minLines,
     this.minWidth,
     this.selectionControls,
+    this.onFontSizeChanged,
   })  : textSpan = null,
         smartDashesType = smartDashesType ?? (obscureText ? SmartDashesType.disabled : SmartDashesType.enabled),
         smartQuotesType = smartQuotesType ?? (obscureText ? SmartQuotesType.disabled : SmartQuotesType.enabled),
@@ -540,6 +543,7 @@ class _AutoSizeTextFieldState extends State<AutoSizeTextField> {
 
       Widget textField;
       textField = _buildTextField(fontSize, style, maxLines);
+      widget.onFontSizeChanged?.call(fontSize);
       if (widget.overflowReplacement != null && !textFits) {
         return widget.overflowReplacement!;
       } else {
